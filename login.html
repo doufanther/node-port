@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+		
+	</head>
+	<body>
+		<div class="main">
+			手机<input type="" name=""  value="" id="phone">
+		</div>
+		<div>
+			密码<input type="" name=""  value="" id="password">
+		</div>
+		<button id="btn">登录</button>
+		
+		<script type="text/javascript" src="jquery-3.1.1.min.js"></script>
+		<script>
+			$('#btn').on('click',function(){
+				var phone=$('#phone').val();
+				var password=$('#password').val();
+//				console.log(uid);
+				$.ajax({
+					type:'get',
+					url:'http://localhost:3000/login/'+phone+'/'+password,
+					success:function(data){
+						console.log(data);
+						data.length>0?console.log('登录成功'):console.log('失败');
+					},
+					error:function(){
+					console.log('error');
+					}
+				})
+			})
+	</script>
+		
+	</body>
+</html>
