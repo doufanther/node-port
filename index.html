@@ -15,17 +15,19 @@
 		<button id="add">增加</button>
 		<script type="text/javascript" src="jquery-3.1.1.min.js"></script>
 		<script>
+			 var time=new Date().toString().slice(0,25);
+			 console.log(time);
 			$('#btn').on('click',function(){
 				var uid=$('#num').val();
 				console.log(uid);
 				$.ajax({
 					type:'get',
-					url:'http://localhost:3000/user/'+uid,
+					url:'http://localhost:3000/product/'+uid,
 					success:function(data){
 						console.log(data);
 						var b='';
 						for(var i=0;i<data.length;i++){
-							var aa='<div><span>'+data[i].store_name+'</span><span class="name">名字</span></div><div><span>电话</span><span class="phone">'+data[i].address+'</span></div>';
+							var aa='<div><span>'+data[i].title+'</span><span class="name">名字</span></div><div><span>电话</span><span class="phone">'+data[i].desc+'</span></div>';
 							 b+=aa;
 						}
 						$('.main').html(b);

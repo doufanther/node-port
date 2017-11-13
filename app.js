@@ -7,30 +7,43 @@ var app =express();
 //设置跨域访问
 app.all('*', function(req, res, next) {
 	//req.body=666666;
-   res.header("Access-Control-Allow-Origin", "*");
-   res.header("Access-Control-Allow-Headers", "X-Requested-With");
-   res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
-   res.header("X-Powered-By",' 3.2.1');
-   res.header("Content-Type", "application/json;charset=utf-8");
-   next();
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+    res.header("X-Powered-By",' 3.2.1');
+    res.header("Content-Type", "application/json;charset=utf-8");
+    res.header("Cache-Control", "no-chache");
+    var time=new Date().toString().slice(0,25);
+   	res.header("Last-Modified", time);
+   	res.header("if-modified-since", time);
+   	next();
 });
 
 
+//var connection = mysql.createConnection({     
+//host     : 'localhost',       
+//user     : 'root',              
+//password : '123456',       
+//port: '3306',                   
+//database: 'tpshop', 
+//}); 
+ 
 var connection = mysql.createConnection({     
-  host     : 'localhost',       
+  host     : '192.168.2.199',       
   user     : 'root',              
   password : '123456',       
   port: '3306',                   
-  database: 'tpshop', 
-}); 
+  database: 'blossomlock', 
+});  
  
 connection.connect();
 
 
-app.get('/user/:id',function(req,res){
-		var id=req.params.id;
-		console.log(id);
-		var  sql = 'SELECT * FROM tp_store where id='+id;
+app.get('/product/:type',function(req,res){
+		
+		var type=req.params.type;
+		console.log(req.statusCode);
+		var  sql = 'SELECT * FROM product where type='+type;
 //查
 		
 		 //var user_name=req.body.user;  
@@ -44,11 +57,9 @@ connection.query(sql,function (err, result) {
         }
  
        console.log('--------------------------SELECT----------------------------');
-       console.log(result);
-       var questions=result;
-       //写个接口123
-		res.status(200),
-		res.json(questions)
+       //console.log(result);
+		res.status(200);
+		res.json(result);
 
        console.log('------------------------------------------------------------\n\n');  
 	});
@@ -59,7 +70,7 @@ app.get('/login/:phone/:password',function(req,res){
 		var phone=req.params.phone;
 		var password=req.params.password;
 //		console.log(id);
-		var sql="select * from tp_users where mobile = '"+phone+"' and password = '"+password+"'"
+		var sql="select * from user where account = '"+phone+"' and password = '"+password+"'"
 		
 		
 		 //var user_name=req.body.user;  
