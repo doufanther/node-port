@@ -39,10 +39,10 @@ var connection = mysql.createConnection({
 connection.connect();
 
 
-app.get('/product/:type',function(req,res){
+app.get('/product',function(req,res){
 		
-		var type=req.params.type;
-		console.log(req.statusCode);
+		var type=req.query.type;
+		console.log(type);
 		var  sql = 'SELECT * FROM product where type='+type;
 //查
 		
