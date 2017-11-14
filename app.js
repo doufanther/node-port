@@ -28,20 +28,49 @@ app.all('*', function(req, res, next) {
 //database: 'tpshop', 
 //}); 
  
-var connection = mysql.createConnection({     
-  host     : '192.168.2.199',       
-  user     : 'root',              
-  password : '123456',       
-  port: '3306',                   
-  database: 'blossomlock', 
-});  
+// var connection = mysql.createConnection({     
+//   host     : 'w.rdc.sae.sina.com.cn',       
+//   user     : 'l2myzzxljx',              
+//   password : '5wj4lyl4mmiz4myk55h2w0ll5ilm03kwxjh40xkk',       
+//   port: '3306',                   
+//   database: 'app_zhengshufa88', 
+// });  
+
+function handleError (err) {
+  if (err) {
+    // 如果是连接断开，自动重新连接
+    if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+      connect();
+    } else {
+      console.error(err.stack || err);
+    }
+  }
+}
+var config={
+
+   host     : 'w.rdc.sae.sina.com.cn',       
+   user     : 'l2myzzxljx',              
+   password : '5wj4lyl4mmiz4myk55h2w0ll5ilm03kwxjh40xkk',       
+   port: '3306',                   
+   database: 'app_zhengshufa88', 
+  
+};
+// 连接数据库
+function connect () {
+  connection = mysql.createConnection(config);
+  connection.connect(handleError);
+  connection.on('error', handleError);
+}
+
+var connection;
+connect();
  
-connection.connect();
+// connection.connect();
 
 
-app.get('/product/:type',function(req,res){
+app.get('/product',function(req,res){
 		
-		var type=req.params.type;
+		var type=req.query.type;
 		console.log(req.statusCode);
 		var  sql = 'SELECT * FROM product where type='+type;
 //查
@@ -126,4 +155,4 @@ var host = server.address().address;
 })
 
 
-//connection.end();
+// connection.end();
