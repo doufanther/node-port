@@ -71,11 +71,9 @@ connect();
 app.get('/product',function(req,res){
 		
 		var type=req.query.type;
-<<<<<<< HEAD
-		console.log(req.statusCode);
-=======
+
 		console.log(type);
->>>>>>> d135fe290d4619effe3c431ad476d9a30dc2fa2f
+
 		var  sql = 'SELECT * FROM product where type='+type;
 //查
 		
