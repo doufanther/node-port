@@ -150,7 +150,7 @@ app.post('/add',function(req,res){
 
 
 //配置服务端口
-var server = app.listen(3000, function () {
+var server = app.listen(3022, function () {
 var host = server.address().address;
  var port = server.address().port;
     console.log('Example app listening at http://%s:%s', host, port);
